@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .top {
+            background-color: #eb8c51;
+            color: white;
+            padding: 10px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .title {
+            font-size: 50px;
+        }
+
+        .logout {
+            padding: 10px 20px;
+            background-color: #eb8c51;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .logout a
+        {
+            text-decoration: none;
+            color: white;
+        }
+
+        .logout:hover {
+            background-color: #e67026;
+        }
+        .menulist
+        {
+            border: 1px solid black;
+            width: 100%;
+            height: 50px;
+            margin: 0 auto;
+        }
+        .menu
+        {
+            border: 0px solid black;
+            width: 200px;
+            height: 50px;
+            margin-left: 750px;
+            float: left;
+        }
+        .menu a
+        {
+            font-size: 20px;
+            position: relative;
+            top: 10px;
+            left: 40px;
+            text-decoration: none;
+            color: #000;
+        }
+        .menu a:hover
+        {
+            color: crimson;
+        }
+        .menu1
+        {
+            border: 0px solid black;
+            width: 200px;
+            height: 50px;
+            float: left;
+        }
+        .menu1 a
+        {
+            font-size: 20px;
+            position: relative;
+            top: 10px;
+            text-decoration: none;
+            color: #000;
+        }
+        .menu1 a:hover
+        {
+            color: crimson;
+        }
+        .foodpicture
+        {
+            border: 0px solid black;
+            width: 100%;
+            height: 500px;
+            margin: 0 auto;
+        }
+        .foodlist
+        {
+            border: 0px solid black;
+            border-radius: 10px;
+            width: 350px;
+            height: 400px;
+            margin-top: 100px;
+            margin-left: 180px;
+            float: left;
+            box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.1);
+        }
+        .foodlist1
+        {
+            border: 0px solid black;
+            border-radius: 10px;
+            width: 350px;
+            height: 400px;
+            margin-top: 100px;
+            margin-left: 150px;
+            float: left;
+            box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.1);
+        }
+        .foodname
+        {
+            border: 0px solid black;
+            width: 350px;
+            height: 50px;
+            margin-top: 300px;
+        }
+        .foodname p
+        {
+            font-size: 30px;
+            position: relative;
+            top: -300px;
+            left: 120px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        .foodname1 p
+        {
+            font-size: 30px;
+            position: relative;
+            top: -30px;
+            left: 140px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        .menutitle
+        {
+            border: 0px solid black;
+            width: 700px;
+            height: 50px;
+            margin: 0 auto;
+            margin-top: 50px;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        .menutitle p
+        {
+            font-size: 50px;
+            position: relative;
+            top: -20px;
+
+        }
+        .picture
+        {
+            width: 350px;
+            height: 300px;
+            border-top-right-radius: 10px;
+            border-top-left-radius: 10px;
+        }
+        .orderbutton
+        {
+            border: 0px solid black;
+            width: 100%;
+            height: 50px;
+            margin-top: -300px;
+        }
+        .orderbutton1
+        {
+            border: 0px solid black;
+            width: 100%;
+            height: 50px;
+            margin-top: -50px;
+        }
+        .orderbutton button
+        {
+            width: 100%;
+            height: 30px;
+            cursor: pointer;
+            background-color:#eb8c51;
+            border: 0;
+            border-radius: 10px;
+            color: white;
+        }
+        .orderbutton1 button
+        {
+            width: 100%;
+            height: 30px;
+            cursor: pointer;
+            background-color:#eb8c51;
+            border: 0;
+            border-radius: 10px;
+            color: white;
+        }
+        .foodmoney
+        {
+            border: 1px solid rgb(255, 255, 255);
+            border-top-right-radius: 10px;
+            border-top-left-radius: 10px;
+            width: 100%;
+            height: 50px;
+        }
+        .foodmoney p
+        {
+            text-align: center;
+            font-size: 30px;
+            position: relative;
+            top: -30px;
+        }
+    </style>
+</head>
+<body>
+<div class="top">
+    <div class="loginid">
+        <p th:text="${'현재 사용자 : ' + userloginid}"></p>
+    </div>
+    <div class="title">
+        <b>레스토랑</b>
+    </div>
+    <div class="logout">
+        <a href="/restaurant/index">로그아웃</a>
+    </div>
+</div>
+<div class="menulist">
+    <div class="menu">
+        <a href="/restaurant/main"><b>메인메뉴</b></a>
+        <!-- 예약을 하지 않았으면 th:if로 주문하기 버튼 비활성화 -->
+    </div>
+</div>
+<div class="menutitle">
+    <p><b>주문할 메뉴를 선택해주세요</b></p>
+</div>
+<div class="foodpicture">
+    <div class="foodlist">
+        <div class="foodmoney">
+            <p><b>20000원</b></p>
+        </div>
+        <img src="/restaurantimg/스테이크.png" class="picture">
+        <div class="foodname">
+            <p><b>스테이크</b></p>
+        </div>
+        <div class="orderbutton">
+            <button th:onclick="|location.href='@{'/restaurant/steakorder/' + ${user.id}}'|"><b>주문하기</b></button>
+            <!--@PathVarible로 주문하기 버튼 누를때 id값 부여-->
+        </div>
+    </div>
+    <div class="foodlist1">
+        <div class="foodmoney">
+            <p><b>10000원</b></p>
+        </div>
+        <img src="/restaurantimg/파스타.jpeg" class="picture">
+        <div class="foodname">
+            <p><b>파스타</b></p>
+        </div>
+        <div class="orderbutton">
+            <button th:onclick="|location.href='@{'/restaurant/pastaorder/' + ${user.id}}'|"><b>주문하기</b></button>
+        </div>
+    </div>
+    <div class="foodlist1">
+        <div class="foodmoney">
+            <p><b>15000원</b></p>
+        </div>
+        <img src="/restaurantimg/피자.jpg" class="picture">
+        <div class="foodname1">
+            <p><b>피자</b></p>
+        </div>
+        <div class="orderbutton1">
+            <button th:onclick="|location.href='@{'/restaurant/pizzaorder/' + ${user.id}}'|"><b>주문하기</b></button>
+        </div>
+    </div>
+</div>
+</body>
+</html>
