@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>레스토랑</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .top {
+            background-color: #eb8c51;
+            color: white;
+            padding: 10px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .title {
+            font-size: 50px;
+        }
+
+        .logout {
+            padding: 10px 20px;
+            background-color: #eb8c51;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .logout a
+        {
+            text-decoration: none;
+            color: white;
+        }
+
+        .logout:hover {
+            background-color: #e67026;
+        }
+        .menulist
+        {
+            border: 1px solid black;
+            width: 100%;
+            height: 50px;
+            margin: 0 auto;
+        }
+        .menu
+        {
+            border: 0px solid black;
+            width: 200px;
+            height: 50px;
+            margin-left: 750px;
+            float: left;
+        }
+        .menu a
+        {
+            font-size: 20px;
+            position: relative;
+            top: 10px;
+            left: 40px;
+            text-decoration: none;
+            color: #000;
+        }
+        .menu a:hover
+        {
+            color: crimson;
+        }
+        .couponline
+        {
+            border: 1px solid white;
+            border-radius: 15px;
+            width: 700px;
+            height: 150px;
+            margin: 0 auto;
+            margin-top: 100px;
+            box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.1);
+        }
+        .couponline p
+        {
+            font-size: 50px;
+            position: relative;
+            left: 35px;
+            top: -15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        .couponissue
+        {
+            border: 0px solid black;
+            border-bottom-right-radius: 15px;
+            border-top-right-radius: 15px;
+            width: 200px;
+            height: 150px;
+            margin-left: 500px;
+            position: relative;
+            top: -166px;
+        }
+        .couponissue button
+        {
+            border: 1px solid cornflowerblue;
+            width: 200px;
+            height: 150px;
+            border-bottom-right-radius: 15px;
+            border-top-right-radius: 15px;
+            cursor: pointer;
+            font-size: 30px;
+            background-color: cornflowerblue;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        .couponalert
+        {
+            border: 0px solid black;
+            border-radius: 10px;
+            width: 500px;
+            height: 50px;
+            margin: 0 auto;
+            margin-top: 50px;
+            box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.1);
+        }
+        .couponalert p
+        {
+            text-align: center;
+            font-size: 30px;
+            color: crimson;
+        }
+    </style>
+</head>
+<body>
+<div class="top">
+    <div class="loginid">
+        <p th:text="${'현재 사용자 : ' + userloginid}"></p>
+    </div>
+    <div class="title">
+        <b>레스토랑</b>
+    </div>
+    <div class="logout">
+        <a href="/restaurant/index">로그아웃</a>
+    </div>
+</div>
+<div class="menulist">
+    <div class="menu">
+        <a href="/restaurant/main"><b>메인메뉴</b></a>
+    </div>
+</div>
+<form th:action="@{'/restaurant/coupon/' + ${user.id}}" method="post">
+    <div class="couponline">
+        <p><b>5000원 할인쿠폰!!</b></p>
+        <div class="couponissue" th:if="${user.couponcheck == false}">
+            <button type="submit"><b>쿠폰받기</b></button>
+        </div>
+        <div class="couponissue" th:if="${user.couponcheck == true}">
+            <button type="submit" disabled="disabled" style="background-color: gray; border: 1px solid gray;"><b>지급완료</b></button>
+        </div>
+    </div>
+</form>
+<div class="couponalert" th:if="${user.couponcheck == true}">
+    <p><b>5000원 할인이 적용 되었습니다!</b></p>
+</div>
+</body>
+</html>
