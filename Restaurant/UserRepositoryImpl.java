@@ -154,6 +154,8 @@ public class UserRepositoryImpl implements UserRepository{
                 return loginId;
             }
         }
+        // Map에 저장된 데이터를 기준으로 loginid와 password가 일치하는 곳의 key 값인 id값을 가져와서 loginId에 재할당
+        // 일치하는 데이터가 없으면 null을 반환
         return null;
     }
 
@@ -166,6 +168,11 @@ public class UserRepositoryImpl implements UserRepository{
         user.setSteakcount(user.getSteakcount() + steakcount);
         user.addSteakmoney(steakmoney);
         user.addTotalmoney(steakmoney);
+
+        // 스테이크 주문이 들어오면 로그인중인 id 값에 value 값을 전달
+        // 스테이크 금액은 매개변수로 입력받은 스테이크 개수에 스테이크 값을 곱해서 계산
+        // 스테이크 개수는 입력 받은 스테이크 개수를 더해서 누적
+        // 스테이크 금액과 총 금액은 각각 스테이크 금액 필드변수, 총 금액 필드변수에 카운트 기법으로 누적
 
         String SteakOrderSql = "update restaurant set steakcount = ?, steakmoney = ?, totalmoney = ? where id = ?";
 
@@ -201,6 +208,11 @@ public class UserRepositoryImpl implements UserRepository{
             user.setVipcheck(true);
             vipcount = 1;
 
+            // vip 혜택을 받기 전이고 총 금액이 20만원을 넘으면 등급을 vip로 변경
+            // 변경 후 총 금액에서 5000원을 뺌
+            // vip 혜택 여부도 true로 변경해서 더 이상 할인을 받지 못하게 함
+            // 그 뒤 vip count값을 1로 변경 해서 해당 if문 조건으로 들어오지 못하게 막음
+
             String SteakOrderVipSql = "update restaurant set rating = ?, vipdiscount = ?, totalmoney = ?, vipcheck = ? where id = ?";
 
             try
@@ -233,6 +245,8 @@ public class UserRepositoryImpl implements UserRepository{
         if (vipcount > 0 && user.getTotalmoney() > 200000)
         {
             System.out.println("이미 할인 받으셨습니다");
+
+            // vipcount가 0보다 크고 총 금액이 20만원이 넘으면 더 이상 할인헤택 불가
         }
         System.out.println();
         System.out.println(data.toString());
@@ -404,6 +418,11 @@ public class UserRepositoryImpl implements UserRepository{
         user.setCouponcheck(true);
         user.setTotalmoney(user.getTotalmoney() - 5000);
         user.setDiscount(5000);
+
+        // 홈페이지에서 쿠폰 받기 버튼을 클릭 하면 해당 id value 데이터를 변경
+        // 쿠폰체크를 true로 바꾸고 더 이상 할인을 못받게함
+        // 총 금액에서 5000원을 뺌
+        // 얼마 할인 받았는지 표시하기 위해 할인금액을 따로 저장
 
         String CouponCheckSql = "update restaurant set couponcheck = ?, totalmoney =?, discount = ? where id = ?";
 
