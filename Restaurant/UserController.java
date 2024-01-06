@@ -88,6 +88,11 @@ public class UserController {
         System.out.println("넘겨 받은 id = " + id);
         model.addAttribute("user", user);
         model.addAttribute("userloginid", userloginId);
+
+        // @PathVariable으로 홈페이지 url에 해당 id값을 전달 함으로서 데이터 중복 방지
+        // 중요한건 @Pathvariable 네임과 GetMapping 주소값에 들어가는 네임이 서로 같아야함 틀리면 오류발생
+        // 매개변수로 id 값을 전달하고 사용자별로 각각 데이터 관리가 가능해짐
+        // user 객체에 해당 id 값을 전달 함으로서 view에서 user 모든 객체에 접근이 가능해짐
         return "/restaurant/order";
     }
     // 음식 사진 클릭하면 @PathVarible로 id값 부여하고 저장
@@ -178,6 +183,9 @@ public class UserController {
         model.addAttribute("discount", discount);
         model.addAttribute("totalmoney", totalmoney);
         model.addAttribute("userloginid", userloginId);
+
+        // key 값인 id 별로 모든 value 값을 가져와서 홈페이지에 출력함
+
         return "/restaurant/myorderlist";
     }
 
@@ -187,6 +195,10 @@ public class UserController {
     {
         User user = userService.findById(id);
         model.addAttribute("user", user);
+
+        // 내 주문 리스트 처럼 컨트롤러에서 모든 데이터를 가져와서 user 객체변수에 담아서 사용도 가능하지만
+        // id 값을 가져와서 html에서 타임리프로 필요한 데이터를 가져오는 것도 가능하다
+        // 그러기 위해서 user 객체 값을 model에 담아서 타임리프 엔진에 전달 해야함
         model.addAttribute("userloginid", userloginId);
         return "/restaurant/coupon";
     }
